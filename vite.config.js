@@ -1,22 +1,16 @@
+import path from "path";
+const isGitHubPages = true;
+const folderName = path.basename(process.cwd()) + "/";
 const mode = process.env.NODE_ENV === "production" ? "production" : "development";
-const base = "/";
-const { resolve } = require("path");
+const base = mode === "production" && isGitHubPages ? "/" + folderName : "/";
 
-console.log(resolve);
-
-module.exports = {
+export default {
   root: "src",
   base,
   mode,
   publicDir: "../public",
   build: {
     outDir: "../dist",
-    assetsDir: "./",
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "src/index.html"),
-        nested: resolve(__dirname, "src/404file.html"),
-      }
-    }
+    assetsDir: "./"
   }
 };
